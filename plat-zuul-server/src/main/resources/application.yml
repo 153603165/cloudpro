@@ -1,0 +1,48 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: plat-zuul-server
+  aop:
+    proxy-target-class: true
+    
+security:
+  user:
+    password: password
+  oauth2:
+    client:
+      clientId: acme
+      clientSecret: acmesecret
+      accessTokenUri: http://192.168.0.114:9999/uaa/oauth/token
+      userAuthorizationUri: http://192.168.0.114:9999/uaa/oauth/authorize
+    resource:
+      userInfoUri: http://192.168.0.114:9999/uaa/user
+      
+zuul:
+  routes:
+    pro-cms:
+      path: /cms/**
+      serviceId: pro-cms
+    pro-sys:
+      path: /sys/**
+      serviceId: pro-sys
+    web:
+      path: /web/**
+      serviceId: pro-web
+    uaa:      
+      path: /uaa/**
+      strip-prefix: false
+      serviceId: plat-oauth2-server
+
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
+        web: info
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.114:8761/eureka/
+

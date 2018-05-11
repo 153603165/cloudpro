@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    config:
+      name: plat-eureka-server
+      uri: http://127.0.0.1:10001
+      profile: dev
+      fail-fast: true
+      retry:
+        max-attempts: 10
+        initial-interval: 3000
+
